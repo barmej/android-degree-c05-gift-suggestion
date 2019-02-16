@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -28,17 +29,29 @@ public class MainActivity extends AppCompatActivity {
     private Random mRandom;
 
     /**
-     * ImageView to display images
+     * ImageView to display gift pictures
      */
     private ImageView mGiftImageView;
 
     /**
-     * Array that hold drawable images ids
+     * TextView to display gift names
      */
-    private int[] mGiftsPictures = {R.drawable.gift_1,
-            R.drawable.gift_2, R.drawable.gift_3, R.drawable.gift_4,
-            R.drawable.gift_5, R.drawable.gift_6, R.drawable.gift_7,
-            R.drawable.gift_8, R.drawable.gift_9, R.drawable.gift_10};
+    private TextView mGiftNameTextView;
+
+    /**
+     * Two dimens array that hold resources ids of gift pictures and names
+     */
+    private int[][] mGifts = {
+            {R.drawable.gift_1, R.string.damask_rose},
+            {R.drawable.gift_2, R.string.flower},
+            {R.drawable.gift_3, R.string.cake},
+            {R.drawable.gift_4, R.string.laptop},
+            {R.drawable.gift_5, R.string.mobile},
+            {R.drawable.gift_6, R.string.book},
+            {R.drawable.gift_7, R.string.piece_of_cake},
+            {R.drawable.gift_8, R.string.shirt},
+            {R.drawable.gift_9, R.string.shoe},
+            {R.drawable.gift_10, R.string.diamond}};
 
     /**
      * Variable used as index to move through images array
@@ -51,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Create new Random object
         mRandom = new Random();
-        // Get imageView from view hierarchy
-        mGiftImageView = findViewById(R.id.image_gift);
+        // Get ImageView from view hierarchy
+        mGiftImageView = findViewById(R.id.image_gift_picture);
+        // Get TextView from view hierarchy
+        mGiftNameTextView = findViewById(R.id.text_gift_name);
         Log.i(TAG, "Created");
     }
 
@@ -98,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_CURRENT_INDEX)) {
             mCurrentIndex = savedInstanceState.getInt(BUNDLE_CURRENT_INDEX);
             if (mCurrentIndex != -1) {
-                showImage();
+                showSuggestedGift();
             }
         }
         Log.i(TAG, "onRestoreInstanceState");
@@ -123,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         if (mCurrentIndex < 9) {
             // Generate random index
             mCurrentIndex = mRandom.nextInt(10);
-            showImage();
+            showSuggestedGift();
         } else {
             // Reset the counter
             mCurrentIndex = -1;
@@ -131,11 +146,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Show the image at the current index
+     * Show the picture & name of the gift located at current index
      */
-    private void showImage() {
-        Drawable giftDrawable = ContextCompat.getDrawable(this, mGiftsPictures[mCurrentIndex]);
+    private void showSuggestedGift() {
+        Drawable giftDrawable = ContextCompat.getDrawable(this, mGifts[mCurrentIndex][0]);
         mGiftImageView.setImageDrawable(giftDrawable);
+        mGiftNameTextView.setText(mGifts[mCurrentIndex][1]);
     }
 
 }
