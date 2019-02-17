@@ -163,18 +163,28 @@ public class MainActivity extends AppCompatActivity {
      */
     private void changeGiftNameTextColor() {
         int giftName = mGifts[mCurrentIndex].getName();
-        if(giftName == R.string.damask_rose || giftName == R.string.flower) {
-            mGiftNameTextView.setTextColor(Color.BLUE);
-        } else if(giftName == R.string.cake || giftName == R.string.piece_of_cake) {
-            mGiftNameTextView.setTextColor(Color.BLUE);
-        } else if(giftName == R.string.laptop || giftName == R.string.mobile) {
-            mGiftNameTextView.setTextColor(Color.MAGENTA);
-        }  else if(giftName == R.string.book) {
-            mGiftNameTextView.setTextColor(Color.CYAN);
-        } else if(giftName == R.string.shirt || giftName == R.string.shoe) {
-            mGiftNameTextView.setTextColor(Color.GREEN);
-        } else if(giftName == R.string.diamond) {
-            mGiftNameTextView.setTextColor(Color.DKGRAY);
+        switch (giftName) {
+            case R.string.damask_rose:
+            case R.string.flower:
+                mGiftNameTextView.setTextColor(Color.BLUE);
+                break;
+            case R.string.cake:
+            case R.string.piece_of_cake:
+                mGiftNameTextView.setTextColor(Color.BLUE);
+                break;
+            case R.string.laptop:
+            case R.string.mobile:
+                mGiftNameTextView.setTextColor(Color.MAGENTA);
+                break;
+            case R.string.book:
+                        mGiftNameTextView.setTextColor(Color.CYAN);
+            case R.string.shirt:
+            case R.string.shoe:
+                mGiftNameTextView.setTextColor(Color.GREEN);
+                break;
+            case R.string.diamond:
+                mGiftNameTextView.setTextColor(Color.DKGRAY);
+                break;
         }
     }
 
