@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -70,6 +71,14 @@ public class MainActivity extends AppCompatActivity {
         mGiftImageView = findViewById(R.id.image_gift_picture);
         // Get TextView from view hierarchy
         mGiftNameTextView = findViewById(R.id.text_gift_name);
+        // Get suggest Button from view hierarchy
+        Button giftSuggestButton = findViewById(R.id.button_gift_suggest);
+        giftSuggestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                display(v);
+            }
+        });
         Log.i(TAG, "Created");
     }
 
@@ -140,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         if (mCurrentIndex < 10) {
             // Generate random index
             mCurrentIndex = getRandomNumber();
-            System.out.println(mCurrentIndex);
             showSuggestedGift();
             changeGiftNameTextColor();
         } else {
@@ -191,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Get different random number
-     * @return
+     * @return new random number different that current index
      */
     private int getRandomNumber() {
         int newRandom = mCurrentIndex;
