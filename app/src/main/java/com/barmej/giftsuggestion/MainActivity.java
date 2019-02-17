@@ -1,5 +1,6 @@
 package com.barmej.giftsuggestion;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
             // Generate random index
             mCurrentIndex = mRandom.nextInt(10);
             showSuggestedGift();
+            changeGiftNameTextColor();
         } else {
             // Reset the counter
             mCurrentIndex = -1;
@@ -154,6 +156,26 @@ public class MainActivity extends AppCompatActivity {
         Drawable giftDrawable = ContextCompat.getDrawable(this, suggestedGift.getPicture());
         mGiftImageView.setImageDrawable(giftDrawable);
         mGiftNameTextView.setText(suggestedGift.getName());
+    }
+
+    /**
+     * Change gift name color based on selected gift!
+     */
+    private void changeGiftNameTextColor() {
+        int giftName = mGifts[mCurrentIndex].getName();
+        if(giftName == R.string.damask_rose || giftName == R.string.flower) {
+            mGiftNameTextView.setTextColor(Color.BLUE);
+        } else if(giftName == R.string.cake || giftName == R.string.piece_of_cake) {
+            mGiftNameTextView.setTextColor(Color.BLUE);
+        } else if(giftName == R.string.laptop || giftName == R.string.mobile) {
+            mGiftNameTextView.setTextColor(Color.MAGENTA);
+        }  else if(giftName == R.string.book) {
+            mGiftNameTextView.setTextColor(Color.CYAN);
+        } else if(giftName == R.string.shirt || giftName == R.string.shoe) {
+            mGiftNameTextView.setTextColor(Color.GREEN);
+        } else if(giftName == R.string.diamond) {
+            mGiftNameTextView.setTextColor(Color.DKGRAY);
+        }
     }
 
 }
