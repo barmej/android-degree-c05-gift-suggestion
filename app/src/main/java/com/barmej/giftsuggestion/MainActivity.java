@@ -137,9 +137,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void display(View view) {
         // If counter does not exceed the last index in the array
-        if (mCurrentIndex < 9) {
+        if (mCurrentIndex < 10) {
             // Generate random index
-            mCurrentIndex = mRandom.nextInt(10);
+            mCurrentIndex = getRandomNumber();
+            System.out.println(mCurrentIndex);
             showSuggestedGift();
             changeGiftNameTextColor();
         } else {
@@ -186,6 +187,18 @@ public class MainActivity extends AppCompatActivity {
                 mGiftNameTextView.setTextColor(Color.DKGRAY);
                 break;
         }
+    }
+
+    /**
+     * Get different random number
+     * @return
+     */
+    private int getRandomNumber() {
+        int newRandom = mCurrentIndex;
+        while (newRandom == mCurrentIndex) {
+            newRandom = mRandom.nextInt(10);
+        }
+        return newRandom;
     }
 
 }
