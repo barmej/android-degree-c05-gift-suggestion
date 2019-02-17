@@ -44,16 +44,16 @@ public class MainActivity extends AppCompatActivity {
      * Array that hold gift objects
      */
     private Gift[] mGifts = {
-            new Gift(R.string.damask_rose, R.drawable.gift_1),
-            new Gift(R.string.flower, R.drawable.gift_2),
-            new Gift(R.string.cake, R.drawable.gift_3),
-            new Gift(R.string.laptop, R.drawable.gift_4),
-            new Gift(R.string.mobile, R.drawable.gift_5),
-            new Gift(R.string.book, R.drawable.gift_6),
-            new Gift(R.string.piece_of_cake, R.drawable.gift_7),
-            new Gift(R.string.shirt, R.drawable.gift_8),
-            new Gift(R.string.shoe, R.drawable.gift_9),
-            new Gift(R.string.diamond, R.drawable.gift_10),
+            new Gift(R.string.damask_rose, R.drawable.gift_1, Gift.GiftType.NATURAL),
+            new Gift(R.string.flower, R.drawable.gift_2, Gift.GiftType.NATURAL),
+            new Gift(R.string.cake, R.drawable.gift_3, Gift.GiftType.FOOD),
+            new Gift(R.string.laptop, R.drawable.gift_4, Gift.GiftType.ELECTRONICS),
+            new Gift(R.string.mobile, R.drawable.gift_5, Gift.GiftType.ELECTRONICS),
+            new Gift(R.string.book, R.drawable.gift_6, Gift.GiftType.OTHER),
+            new Gift(R.string.piece_of_cake, R.drawable.gift_7, Gift.GiftType.FOOD),
+            new Gift(R.string.shirt, R.drawable.gift_8, Gift.GiftType.CLOTHES),
+            new Gift(R.string.shoe, R.drawable.gift_9, Gift.GiftType.CLOTHES),
+            new Gift(R.string.diamond, R.drawable.gift_10, Gift.GiftType.JEWELRY),
     };
 
     /**
@@ -168,30 +168,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Change gift name color based on selected gift!
+     * Change gift name color based on selected gift type!
      */
     private void changeGiftNameTextColor() {
-        int giftName = mGifts[mCurrentIndex].getName();
-        switch (giftName) {
-            case R.string.damask_rose:
-            case R.string.flower:
-                mGiftNameTextView.setTextColor(Color.BLUE);
-                break;
-            case R.string.cake:
-            case R.string.piece_of_cake:
-                mGiftNameTextView.setTextColor(Color.BLUE);
-                break;
-            case R.string.laptop:
-            case R.string.mobile:
-                mGiftNameTextView.setTextColor(Color.MAGENTA);
-                break;
-            case R.string.book:
-                        mGiftNameTextView.setTextColor(Color.CYAN);
-            case R.string.shirt:
-            case R.string.shoe:
+        Gift.GiftType giftType = mGifts[mCurrentIndex].getGiftType();
+        switch (giftType) {
+            case NATURAL:
                 mGiftNameTextView.setTextColor(Color.GREEN);
                 break;
-            case R.string.diamond:
+            case FOOD:
+                mGiftNameTextView.setTextColor(Color.BLUE);
+                break;
+            case ELECTRONICS:
+                mGiftNameTextView.setTextColor(Color.MAGENTA);
+                break;
+            case OTHER:
+                mGiftNameTextView.setTextColor(Color.CYAN);
+            case CLOTHES:
+                mGiftNameTextView.setTextColor(Color.BLACK);
+                break;
+            case JEWELRY:
                 mGiftNameTextView.setTextColor(Color.DKGRAY);
                 break;
         }
@@ -199,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Get different random number
+     *
      * @return new random number different that current index
      */
     private int getRandomNumber() {
