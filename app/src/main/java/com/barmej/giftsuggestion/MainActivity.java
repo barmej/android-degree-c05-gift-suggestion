@@ -184,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case OTHER:
                 mGiftNameTextView.setTextColor(Color.CYAN);
+                break;
             case CLOTHES:
                 mGiftNameTextView.setTextColor(Color.BLACK);
                 break;
