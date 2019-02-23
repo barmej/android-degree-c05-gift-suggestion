@@ -1,11 +1,13 @@
 package com.barmej.giftsuggestion;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,19 +41,20 @@ public class MainActivity extends AppCompatActivity {
     private TextView mGiftNameTextView;
 
     /**
-     * Two dimens array that hold resources ids of gift pictures and names
+     * Array that hold gift objects
      */
-    private int[][] mGifts = {
-            {R.drawable.gift_1, R.string.damask_rose},
-            {R.drawable.gift_2, R.string.flower},
-            {R.drawable.gift_3, R.string.cake},
-            {R.drawable.gift_4, R.string.laptop},
-            {R.drawable.gift_5, R.string.mobile},
-            {R.drawable.gift_6, R.string.book},
-            {R.drawable.gift_7, R.string.piece_of_cake},
-            {R.drawable.gift_8, R.string.shirt},
-            {R.drawable.gift_9, R.string.shoe},
-            {R.drawable.gift_10, R.string.diamond}};
+    private Gift[] mGifts = {
+            new Gift(R.string.damask_rose, R.drawable.gift_1, Gift.GiftType.NATURAL),
+            new Gift(R.string.flower, R.drawable.gift_2, Gift.GiftType.NATURAL),
+            new Gift(R.string.cake, R.drawable.gift_3, Gift.GiftType.FOOD),
+            new Gift(R.string.laptop, R.drawable.gift_4, Gift.GiftType.ELECTRONICS),
+            new Gift(R.string.mobile, R.drawable.gift_5, Gift.GiftType.ELECTRONICS),
+            new Gift(R.string.book, R.drawable.gift_6, Gift.GiftType.OTHER),
+            new Gift(R.string.piece_of_cake, R.drawable.gift_7, Gift.GiftType.FOOD),
+            new Gift(R.string.shirt, R.drawable.gift_8, Gift.GiftType.CLOTHES),
+            new Gift(R.string.shoe, R.drawable.gift_9, Gift.GiftType.CLOTHES),
+            new Gift(R.string.diamond, R.drawable.gift_10, Gift.GiftType.JEWELRY),
+    };
 
     /**
      * Variable used as index to move through images array
@@ -68,6 +71,14 @@ public class MainActivity extends AppCompatActivity {
         mGiftImageView = findViewById(R.id.image_gift_picture);
         // Get TextView from view hierarchy
         mGiftNameTextView = findViewById(R.id.text_gift_name);
+        // Get suggest Button from view hierarchy
+        Button giftSuggestButton = findViewById(R.id.button_gift_suggest);
+        giftSuggestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                display(v);
+            }
+        });
         Log.i(TAG, "Created");
     }
 
@@ -135,10 +146,11 @@ public class MainActivity extends AppCompatActivity {
      */
     public void display(View view) {
         // If counter does not exceed the last index in the array
-        if (mCurrentIndex < 9) {
+        if (mCurrentIndex < 10) {
             // Generate random index
-            mCurrentIndex = mRandom.nextInt(10);
+            mCurrentIndex = getRandomNumber();
             showSuggestedGift();
+            changeGiftNameTextColor();
         } else {
             // Reset the counter
             mCurrentIndex = -1;
@@ -149,9 +161,50 @@ public class MainActivity extends AppCompatActivity {
      * Show the picture & name of the gift located at current index
      */
     private void showSuggestedGift() {
-        Drawable giftDrawable = ContextCompat.getDrawable(this, mGifts[mCurrentIndex][0]);
+        Gift suggestedGift = mGifts[mCurrentIndex];
+        Drawable giftDrawable = ContextCompat.getDrawable(this, suggestedGift.getPicture());
         mGiftImageView.setImageDrawable(giftDrawable);
-        mGiftNameTextView.setText(mGifts[mCurrentIndex][1]);
+        mGiftNameTextView.setText(suggestedGift.getName());
+    }
+
+    /**
+     * Change gift name color based on selected gift type!
+     */
+    private void changeGiftNameTextColor() {
+        Gift.GiftType giftType = mGifts[mCurrentIndex].getGiftType();
+        switch (giftType) {
+            case NATURAL:
+                mGiftNameTextView.setTextColor(Color.GREEN);
+                break;
+            case FOOD:
+                mGiftNameTextView.setTextColor(Color.BLUE);
+                break;
+            case ELECTRONICS:
+                mGiftNameTextView.setTextColor(Color.MAGENTA);
+                break;
+            case OTHER:
+                mGiftNameTextView.setTextColor(Color.CYAN);
+                break;
+            case CLOTHES:
+                mGiftNameTextView.setTextColor(Color.BLACK);
+                break;
+            case JEWELRY:
+                mGiftNameTextView.setTextColor(Color.DKGRAY);
+                break;
+        }
+    }
+
+    /**
+     * Get different random number
+     *
+     * @return new random number different that current index
+     */
+    private int getRandomNumber() {
+        int newRandom = mCurrentIndex;
+        while (newRandom == mCurrentIndex) {
+            newRandom = mRandom.nextInt(10);
+        }
+        return newRandom;
     }
 
 }
