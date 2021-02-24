@@ -7,7 +7,7 @@ This app is a simple Android app that allows users to get random gift suggestion
 To use this repository, fork/clone it, or download a zip using the green "Clone or download" button at the top of the file list. Each branch correspond a video lesson in the course.
 
 # Screenshots
-<img src="screenshots/Screenshot_1565899174.png" width="210"> <img src="screenshots/Screenshot_1565899127.png" width="210"> <img src="screenshots/Screenshot_1565899160.png" width="210"> <img src="screenshots/Screenshot_1565899119.png" width="210">
+<img src="screenshots/Screenshot_1565899174.png" width="200"> <img src="screenshots/Screenshot_1565899127.png" width="200"> <img src="screenshots/Screenshot_1565899160.png" width="200"> <img src="screenshots/Screenshot_1565899119.png" width="200">
 
 # Contributing
 All contributions are welcome and gratefully accepted.
